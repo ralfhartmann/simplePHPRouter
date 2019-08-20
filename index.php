@@ -24,7 +24,9 @@ function navi () {
 }
 
 // Include router class
-include('Route.php');
+include('simplePHPRouter/Route.php');
+use simplePHPRouter\Route;
+
 
 // Add base route (startpage)
 Route::add('/',function(){

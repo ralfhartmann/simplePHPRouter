@@ -1,4 +1,5 @@
 <?PHP
+namespace simplePHPRouter;
 
 class Route{
 
