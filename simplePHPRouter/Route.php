@@ -6,7 +6,7 @@ class Route{
   private static $routes = Array();
   private static $pathNotFound = null;
   private static $methodNotAllowed = null;
-
+  private static $preRouting =  Array();
   /**
     * Function used to add a new route
     * @param string $expression    Route string or expression
@@ -30,6 +30,10 @@ class Route{
     self::$methodNotAllowed = $function;
   }
 
+  public static function addPreRouting($function){
+    array_push(self::$preRouting, $function);
+  }
+
   public static function run($basepath = '/', $case_matters = false, $trailing_slash_matters = false){
 
     // Parse current url
@@ -51,6 +55,10 @@ class Route{
     $path_match_found = false;
 
     $route_match_found = false;
+
+    foreach (self::$preRouting as $callback) {
+        call_user_func($callback, $path);
+    }
 
     foreach(self::$routes as $route){
 
