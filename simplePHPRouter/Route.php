@@ -56,8 +56,11 @@ class Route{
 
     $route_match_found = false;
 
+    // call all pre-routing handlers until one of sem returns false
     foreach (self::$preRouting as $callback) {
-        call_user_func($callback, $path);
+        if (!call_user_func($callback, $path)) {
+            break;
+        }
     }
 
     foreach(self::$routes as $route){
